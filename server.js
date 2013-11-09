@@ -15,7 +15,7 @@ var server = http.createServer(function(request, response){
     filePath = 'public/index.html';
   else
     filePath = 'public' + request.url;
-  
+
   var absPath = './' + filePath;
   serveStatic(response, cache, absPath);
 });
@@ -40,7 +40,7 @@ function sendFile(response, filePath, fileContents){
 }
 
 function serveStatic(response, cache, absPath){
-  if(cache[absPath])
+  if(isProduction && cache[absPath])
     sendFile(response, absPath, cache[absPath]);
   else{
     fs.exists(absPath, function(exists){
