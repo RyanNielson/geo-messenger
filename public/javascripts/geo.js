@@ -5,18 +5,15 @@ Geo.prototype.changeTolerance = 0.0001; // approx 7.8m
 
 Geo.prototype.current_location = function(position) {
   var coords = position.coords;
-  var dLat = Math.abs(this.point.lat - coords.latitude);
-  var dLon = Math.abs(this.point.lon - coords.longitude);
-  if(dLat >= this.changeTolerance || dLon >= this.changeTolerance || this.point.lat === false || this.point.lon === false) {
-    this.point.lat = coords.latitude;
-    this.point.lon = coords.longitude;
+  var dLat = Math.abs(this.location.lat - coords.latitude);
+  var dLon = Math.abs(this.location.lon - coords.longitude);
+  if(dLat >= this.changeTolerance || dLon >= this.changeTolerance || this.location.lat === false || this.location.lon === false) {
+    this.location.lat = coords.latitude;
+    this.location.lon = coords.longitude;
     this.location_established = true;
-    console.log("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
-    alert("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
+    //console.log("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
+    //alert("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
     socket.emit('locationChange', { coords: coords });
-  }
-  else{
-    alert("You coords changed, but not that much. Delta Lat: " + dLat + ", Delta Lon: " + dLon);
   }
 };
 
@@ -33,7 +30,7 @@ Geo.prototype.default_options = {
   timeout: 5000
 };
 
-Geo.prototype.point = {
+Geo.prototype.location = {
   lat: false,
   lon: false
 };
