@@ -51,6 +51,12 @@ $(document).ready(function() {
     return false;
   });
 
+  $("#name-form").submit(function() {
+    console.log("Name change submitted");
+    var name = $("#name-box").val();
+    chatApp.changeName(message);
+  });
+
   geo = new Geo();
   geo.track_location();
 });
