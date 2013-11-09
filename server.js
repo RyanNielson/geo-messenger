@@ -59,3 +59,6 @@ function serveStatic(response, cache, absPath){
     });
   }
 }
+
+var appServer = require('./lib/app_server');
+appServer.listen(server);
