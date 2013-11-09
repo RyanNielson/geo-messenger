@@ -1,12 +1,102 @@
 <!doctype html>
 <html lang='en'>
 <head>
-	<title>App</title>
+  <title>Geo Messenger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<iframe src="http://nodeknockout.com/iframe/the-nic-cages" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+  <div class="container">
 
-	<script src='/socket.io/socket.io.js' type='text/javascript'></script>
-	<script src='/javascripts/app_ui.js' type='text/javascript'></script>
+    <div class="page-header">
+      <h1>GEO-MESSENGER</h1>
+      <p class="lead">Send a message to people close-by.</p>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 message-container">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#messages-container" data-toggle="tab"><i class="fa fa-envelope"></i> Messages</a></li>
+          <li><a href="#users-container" data-toggle="tab"><i class="fa fa-users"></i> Users</a></li>
+        </ul>
+
+        <div class="tab-content message-and-users-content">
+          <div class="tab-pane active" id="messages-container">
+            <ul id="messages">
+              <li>Test 1</li>
+              <li>Test 2</li>
+              <li>Test 3</li>
+              <li>Test 4</li>
+              <li>Test 5</li>
+              <li>Test 6</li>
+              <li>Test 7</li>
+              <li>Test 8</li>
+              <li>Test 9</li>
+              <li>Test 10</li>
+              <li>Test 11</li>
+              <li>Test 12</li>
+              <li>Test 13</li>
+              <li>Test 14</li>
+              <li>Test 15</li>
+              <li>Test 16</li>
+              <li>Test 17</li>
+              <li>Test 18</li>
+              <li>Test 19</li>
+              <li>Test 20</li>
+            </ul>
+          </div>
+          <div class="tab-pane" id="users-container">
+             <ul id="users">
+              <li>User 1</li>
+              <li>User 2</li>
+              <li>User 3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <form role="form">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Message" name="message">
+            <div class="input-group-btn">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <form role="form">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="New Name" name="name">
+            <div class="input-group-btn">
+              <button class="btn btn-success" type="submit">Change Name</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <iframe src="http://nodeknockout.com/iframe/the-nic-cages" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <script src='/javascripts/jquery-2.0.3.min.js' type='text/javascript'></script>
+  <script src='/javascripts/modernizr-2.6.3-custom.min.js' type='text/javascript'></script>
+  <script src='/socket.io/socket.io.js' type='text/javascript'></script>
+  <script src='/javascripts/bootstrap.min.js' type='text/javascript'></script>
+  <script src='/javascripts/app_ui.js' type='text/javascript'></script>
+  <script src='/javascripts/script.js' type='text/javascript'></script>
 </body>
 </html>
