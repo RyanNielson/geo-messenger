@@ -15,6 +15,7 @@ Geo.prototype.current_location = function(position) {
     //alert("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
     socket.emit('locationChange', { coords: coords });
   }
+  $('#location-box').val(coords.latitude + ", " + coords.longitude);
 };
 
 Geo.prototype.error = function(err) {
@@ -40,6 +41,9 @@ Geo.prototype.location_established = false;
 Geo.prototype.track_location = function(){
   if(Modernizr.geolocation){
       _this = this;
+      navigator.geolocation.getCurrentPosition(function(position){
+        _this.current_location(position);
+      });
       navigator.geolocation.watchPosition(
         function(position){
           _this.current_location(position);
