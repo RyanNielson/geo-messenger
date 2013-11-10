@@ -1,13 +1,20 @@
 var Geo = function() {
 };
 
+Geo.prototype.changeTolerance = 0.0001; // approx 7.8m
+
 Geo.prototype.current_location = function(position) {
   var coords = position.coords;
-  this.location.lat = coords.latitude;
-  this.location.lon = coords.longitude;
-  this.location_established = true;
-  console.log("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
-  socket.emit('locationChange', { coords: coords });
+  var dLat = Math.abs(this.location.lat - coords.latitude);
+  var dLon = Math.abs(this.location.lon - coords.longitude);
+  if(dLat >= this.changeTolerance || dLon >= this.changeTolerance || this.location.lat === false || this.location.lon === false) {
+    this.location.lat = coords.latitude;
+    this.location.lon = coords.longitude;
+    this.location_established = true;
+    //console.log("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
+    //alert("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
+    socket.emit('locationChange', { coords: coords });
+  }
 };
 
 Geo.prototype.error = function(err) {
@@ -31,8 +38,16 @@ Geo.prototype.location = {
 Geo.prototype.location_established = false;
 
 Geo.prototype.track_location = function(){
-  if(Modernizr.geolocation)
-      navigator.geolocation.watchPosition(this.current_location, this.error, this.default_options);
+  if(Modernizr.geolocation){
+      _this = this;
+      navigator.geolocation.watchPosition(
+        function(position){
+          _this.current_location(position);
+        },
+        this.error,
+        this.default_options
+      );
+  }
   else
       this.error();
 }
