@@ -73,3 +73,7 @@ body.location .connection-message {
 body.location {
   overflow: auto;
 }
+
+#about-container {
+  margin: 0 10px;
+}
