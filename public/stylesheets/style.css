@@ -77,3 +77,8 @@ body.location {
 #about-container {
   margin: 0 10px;
 }
+.system-message{
+  background-color: #eee;
+  color: #666;
+  font-style: italic;
+}

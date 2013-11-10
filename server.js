@@ -1,22 +1,22 @@
 // https://github.com/nko4/website/blob/master/module/README.md#nodejs-knockout-deploy-check-ins
-require('nko')('8d-JzsAEQb_z3nnq');
-var isProduction = (process.env.NODE_ENV === 'production');
+require("nko")("8d-JzsAEQb_z3nnq");
+var isProduction = (process.env.NODE_ENV === "production");
 var port = (isProduction ? 80 : 8000);
 
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
-var mime = require('mime');
+var http = require("http");
+var fs = require("fs");
+var path = require("path");
+var mime = require("mime");
 var cache = {};
 
 var server = http.createServer(function(request, response){
   var filePath = false;
-  if (request.url == '/')
-    filePath = 'public/index.html';
+  if (request.url == "/")
+    filePath = "public/index.html";
   else
-    filePath = 'public' + request.url;
+    filePath = "public" + request.url;
 
-  var absPath = __dirname + '/' + filePath;
+  var absPath = __dirname + "/" + filePath;
   serveStatic(response, cache, absPath);
 });
 
@@ -25,12 +25,12 @@ server.listen(port, function(err){
     console.error(err);
     process.exit(-1);
   }
-  console.log('listening on port ' + port);
+  console.log("listening on port " + port);
 });
 
 function send404(response) {
-  response.writeHead(404, {'Content-Type': 'text/plain'});
-  response.write('Error 404: resource not found.');
+  response.writeHead(404, {"Content-Type": "text/plain"});
+  response.write("Error 404: resource not found.");
   response.end();
 }
 
@@ -63,5 +63,5 @@ function serveStatic(response, cache, absPath) {
   }
 }
 
-var appServer = require('./lib/app_server');
+var appServer = require("./lib/app_server");
 appServer.listen(server);

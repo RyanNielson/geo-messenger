@@ -1,10 +1,10 @@
 var socket = io.connect();
 
 function liEscapedContentElement(message, classes) {
-  if(typeof(classes) === 'undefined')
-    classes = '';
+  if(typeof(classes) === "undefined")
+    classes = "";
 
-  return $('<li class="' + classes + '"></li>').text(message);
+  return $("<li class='" + classes + "'></li>").text(message);
 }
 
 function enableChat(){
@@ -22,12 +22,15 @@ $(document).ready(function() {
   var chatApp = new Chat(socket);
 
   socket.on("message", function(message) {
-    $("#messages").prepend(liEscapedContentElement(message.text, 'message-item'));
+    var css_class = "message-item";
+    if(message.system)
+      css_class += " system-message";
+    $("#messages").prepend(liEscapedContentElement(message.text, css_class));
   });
 
   //show the connection ID - just for debugging?
   socket.on("connect", function(){
-    $('#connection-box').val(socket.socket.sessionid);
+    $("#connection-box").val(socket.socket.sessionid);
   });
 
   //disable touch scrolling initially - removed when chat is enabled
@@ -39,7 +42,7 @@ $(document).ready(function() {
     var message = $("#message-box").val();
 
     chatApp.sendMessage(message);
-    $("#messages").prepend(liEscapedContentElement('You: ' + message, 'message-item current-user-message-item'));
+    $("#messages").prepend(liEscapedContentElement("You: " + message, "message-item current-user-message-item"));
     $("#messages-container").scrollTop($("#messages-container").prop("scrollHeight"));
     $("#message-box").val("");
 
@@ -54,16 +57,16 @@ $(document).ready(function() {
   });
 
   socket.on("userListChanged", function(users) {
-    $('#users li').remove();
+    $("#users li").remove();
     for (var socketId in users) {
       var userName = (socket.socket.sessionid === socketId ? users[socketId].name + " (You)" : users[socketId].name);
-      $("#users").prepend(liEscapedContentElement(userName, 'user-item'));
+      $("#users").prepend(liEscapedContentElement(userName, "user-item"));
     }
   });
 
   socket.on("nameResult", function(name) {
     if (name.success === true)
-      $('#user-name').text(name.name);
+      $("#user-name").text(name.name);
   });
 
   geo = new Geo();
