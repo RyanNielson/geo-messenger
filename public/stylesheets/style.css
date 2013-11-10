@@ -12,6 +12,10 @@
   margin-bottom: 0;
 }
 
+.page-header iframe {
+  vertical-align: middle;
+}
+
 .container {
   padding-left: 15px;
   padding-right: 15px;
