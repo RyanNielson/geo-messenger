@@ -73,3 +73,9 @@ body.location .connection-message {
 body.location {
   overflow: auto;
 }
+
+.system-message{
+  background-color: #eee;
+  color: #666;
+  font-style: italic;
+}

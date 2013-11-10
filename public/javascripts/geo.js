@@ -11,11 +11,11 @@ Geo.prototype.current_location = function(position) {
     this.location.lat = coords.latitude;
     this.location.lon = coords.longitude;
     this.location_established = true;
-    socket.emit('locationChange', { coords: coords });
+    socket.emit("locationChange", { coords: coords });
   }
   //enable chat functionality
   enableChat();
-  $('#location-box').val(coords.latitude + ", " + coords.longitude);
+  $("#location-box").val(coords.latitude + ", " + coords.longitude);
 };
 
 Geo.prototype.error = function(err) {
