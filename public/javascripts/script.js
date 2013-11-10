@@ -28,9 +28,7 @@ $(document).ready(function() {
   });
 
   $("#name-form").submit(function() {
-    var name = $("#name-box").val();
-    chatApp.changeName(name);
-
+    chatApp.changeName($("#name-box").val());
     $("#name-box").val("");
 
     return false;
