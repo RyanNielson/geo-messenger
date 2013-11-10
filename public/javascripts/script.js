@@ -14,6 +14,10 @@ $(document).ready(function() {
     $("#messages").prepend(liEscapedContentElement(message.text, 'message-item'));
   });
 
+  socket.on("connect", function(){
+    $('#connection-box').val(socket.socket.sessionid);
+  });
+
   $("#message-box").focus();
 
   $("#message-form").submit(function() {
