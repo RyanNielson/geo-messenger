@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
   <title>Geo Messenger</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <link href="/stylesheets/vendor/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
@@ -12,17 +12,24 @@
 
     <div class="page-header">
       <h1>GEO-MESSENGER</h1>
-      <p class="lead">Send a message to people close-by.</p>
+      <p class="lead">Send messages to nearby users.</p>
     </div>
 
     <div class="row">
       <div class="col-xs-12 message-container">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#messages-container" data-toggle="tab"><i class="fa fa-envelope"></i> Messages</a></li>
-          <li><a href="#users-container" data-toggle="tab"><i class="fa fa-users"></i> Users</a></li>
+          <li class="active">
+            <a href="#messages-container" data-toggle="tab"><i class="fa fa-envelope"></i> Messages</a>
+          </li>
+          <li>
+            <a href="#users-container" data-toggle="tab"><i class="fa fa-users"></i> Nearby Users</a>
+          </li>
+          <li>
+            <a href="#about-container" data-toggle="tab"><i class="fa fa-question"></i> About</a>
+          </li>
         </ul>
 
-        <div class="tab-content message-and-users-content">
+        <div class="tab-content message-and-users-content" id="messages-and-users-container">
           <div class="tab-pane active" id="messages-container">
             <ul id="messages" class="bulletless-list">
             </ul>
@@ -31,9 +38,18 @@
             <ul id="users" class="bulletless-list">
             </ul>
           </div>
+          <div class="tab-pane" id="about-container">
+            <h3>What is Geo-Messenger?</h3>
+            <p>Geo-Messenger allows you to easily send instant messages to other nearby users. Currently, all users within 5 kilometers of the sender will receive messages. This could be useful for users looking for others to grab a coffee with, or businesses looking to run extremely time-limited local promotions. The local aspect makes sense in these circumstances because a person is going to want to get a coffee with someone that can get there quick, and a small business could focus on local customers.</p>
+            <h3>Where to go from here?</h3>
+            <p>This is just a proof of concept, but we have many ideas of where this could go in the future. Contact lists would make it easy for users to send limited reach messages to only their friends rather than everyone using the application within 5 kilometers. Businesses could also send out advetising or marketing materials over the service. The focus on local messaging allows for some interesting possibilities.</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="connection-details"><span id="user-name"></span> <i class="fa fa-user"></i></div>
+    <div class="connection-details"><span id="user-location"></span> <i class="fa fa-map-marker"></i></div>
 
     <div class="row">
       <div class="col-xs-12">
@@ -63,37 +79,14 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <form role="form" id="connection-form">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Your Connection ID" name="connection" id="connection-box">
-            <div class="input-group-btn">
-              <button class="btn btn-disabled" disabled type="submit">Your Connection ID</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <form role="form" id="location-form">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Your Location" name="location" id="location-box">
-            <div class="input-group-btn">
-              <button class="btn btn-disabled" disabled type="submit">Your Location</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
         <iframe src="http://nodeknockout.com/iframe/the-nic-cages" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
       </div>
     </div>
 
   </div>
+
+  <div id="blackout" class="blackout"></div>
+  <div id="connection-message" class="connection-message">Please wait while we determine your location. <i class="fa fa-spinner fa-spin"></i></div>
 
   <script src='//code.jquery.com/jquery-2.0.3.min.js' type='text/javascript'></script>
   <script src='/javascripts/vendor/modernizr-2.6.3-custom.min.js' type='text/javascript'></script>

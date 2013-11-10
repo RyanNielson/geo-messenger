@@ -11,11 +11,11 @@ Geo.prototype.current_location = function(position) {
     this.location.lat = coords.latitude;
     this.location.lon = coords.longitude;
     this.location_established = true;
-    //console.log("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
-    //alert("You're now at Lat: " + coords.latitude + " & Lon: " + coords.longitude);
-    socket.emit('locationChange', { coords: coords });
+    socket.emit("locationChange", { coords: coords });
   }
-  $('#location-box').val(coords.latitude + ", " + coords.longitude);
+  //enable chat functionality
+  enableChat();
+  $("#user-location").text(coords.latitude + ", " + coords.longitude);
 };
 
 Geo.prototype.error = function(err) {
@@ -23,7 +23,6 @@ Geo.prototype.error = function(err) {
   console.log(err);
   if(err.message)
       console.log(err.message);
-  //TODO: disable chat functionality/interface
 };
 
 Geo.prototype.default_options = {
