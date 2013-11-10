@@ -18,7 +18,6 @@ $(document).ready(function() {
   var chatApp = new Chat(socket);
 
   socket.on("message", function(message) {
-    console.log("Received Message");
     var newElement = $("<li></li>").text(message.text);
     $("#messages").prepend(newElement);
   });
@@ -26,8 +25,6 @@ $(document).ready(function() {
   $("#message-box").focus();
 
   $("#message-form").submit(function() {
-    console.log("Form submitted");
-
     var message = $("#message-box").val();
 
     chatApp.sendMessage(message);
@@ -39,12 +36,19 @@ $(document).ready(function() {
   });
 
   $("#name-form").submit(function() {
-    console.log("Name change submitted");
     var name = $("#name-box").val();
-
     chatApp.changeName(name);
 
+    $("#name-box").val("");
+
     return false;
+  });
+
+  socket.on("userListChanged", function(users) {
+    $('#users li').remove();
+    for (var user in users) {
+      $("#users").prepend(liEscapedContentElement(users[user].name));
+    }
   });
 
   geo = new Geo();
