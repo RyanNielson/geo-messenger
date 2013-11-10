@@ -16,7 +16,6 @@ function liNonEscapedContentElement(user, message, classes) {
 
 function enableChat(){
   $("body").removeClass("no-location").addClass("location").off("touchstart");
-  $("#message-box").focus();
 }
 
 function disableChat(){
