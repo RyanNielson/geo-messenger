@@ -1,25 +1,17 @@
 var socket = io.connect();
 
-function liEscapedContentElement(message) {
-  return $("<li></li>").text(message);
-}
+function liEscapedContentElement(message, classes) {
+  if(typeof(classes) === 'undefined')
+    classes = '';
 
-function processUserInput(chatApp, socket) {
-  var message = $("#message-box").val();
-
-  chatApp.sendMessage(message);
-  $("#messages").prepend(liEscapedContentElement(message));
-  $("#messages-container").scrollTop($("#messages-container").prop("scrollHeight"));
-
-  $("#message-box").val("");
+  return $('<li class="' + classes + '"></li>').text(message);
 }
 
 $(document).ready(function() {
   var chatApp = new Chat(socket);
 
   socket.on("message", function(message) {
-    var newElement = $("<li></li>").text(message.text);
-    $("#messages").prepend(newElement);
+    $("#messages").prepend(liEscapedContentElement(message.text, 'message-item'));
   });
 
   $("#message-box").focus();
@@ -28,7 +20,7 @@ $(document).ready(function() {
     var message = $("#message-box").val();
 
     chatApp.sendMessage(message);
-    $("#messages").prepend(liEscapedContentElement(message));
+    $("#messages").prepend(liEscapedContentElement('You: ' + message, 'message-item current-user-message-item'));
     $("#messages-container").scrollTop($("#messages-container").prop("scrollHeight"));
     $("#message-box").val("");
 
@@ -36,9 +28,7 @@ $(document).ready(function() {
   });
 
   $("#name-form").submit(function() {
-    var name = $("#name-box").val();
-    chatApp.changeName(name);
-
+    chatApp.changeName($("#name-box").val());
     $("#name-box").val("");
 
     return false;
@@ -46,8 +36,9 @@ $(document).ready(function() {
 
   socket.on("userListChanged", function(users) {
     $('#users li').remove();
-    for (var user in users) {
-      $("#users").prepend(liEscapedContentElement(users[user].name));
+    for (var socketId in users) {
+      var userName = (socket.socket.sessionid === socketId ? users[socketId].name + " (You)" : users[socketId].name);
+      $("#users").prepend(liEscapedContentElement(userName, 'user-item'));
     }
   });
 
