@@ -37,6 +37,8 @@ $(document).ready(function() {
     else {
       $("#messages").prepend(liEscapedContentElement(message.user, message.text, css_class));
     }
+
+    $("#messages-and-users-container").scrollTop(0);
   });
 
   //disable touch scrolling initially - removed when chat is enabled
@@ -49,7 +51,7 @@ $(document).ready(function() {
 
     chatApp.sendMessage(message);
     $("#messages").prepend(liEscapedContentElement("You", ": " + message, "message-item current-user-message-item"));
-    $("#messages-container").scrollTop($("#messages-container").prop("scrollHeight"));
+    $("#messages-and-users-container").scrollTop(0);
     $("#message-box").val("");
 
     return false;
