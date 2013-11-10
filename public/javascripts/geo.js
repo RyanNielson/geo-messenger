@@ -15,7 +15,7 @@ Geo.prototype.current_location = function(position) {
   }
   //enable chat functionality
   enableChat();
-  $("#location-box").val(coords.latitude + ", " + coords.longitude);
+  $("#user-location").text(coords.latitude + ", " + coords.longitude);
 };
 
 Geo.prototype.error = function(err) {

@@ -77,8 +77,20 @@ body.location {
 #about-container {
   margin: 0 10px;
 }
-.system-message{
+.system-message {
   background-color: #eee;
   color: #666;
   font-style: italic;
+}
+.connection-details {
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 12px;
+  font-style: italic;
+}
+
+.nav>li>a {
+  padding: 10px 10px;
 }
