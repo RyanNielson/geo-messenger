@@ -1,10 +1,17 @@
 var socket = io.connect();
 
-function liEscapedContentElement(message, classes) {
+function liEscapedContentElement(user, message, classes) {
   if(typeof(classes) === "undefined")
     classes = "";
 
-  return $("<li class='" + classes + "'></li>").text(message);
+  return $("<li class='" + classes + "'></li>").text(message).prepend("<strong>" + user + "</strong>");
+}
+
+function liNonEscapedContentElement(user, message, classes) {
+  if(typeof(classes) === "undefined")
+    classes = "";
+
+  return $("<li class='" + classes + "'></li>").html(message).prepend("<strong>" + user + "</strong>");
 }
 
 function enableChat(){
@@ -23,14 +30,15 @@ $(document).ready(function() {
 
   socket.on("message", function(message) {
     var css_class = "message-item";
-    if(message.system)
+    if(message.system) {
       css_class += " system-message";
-    $("#messages").prepend(liEscapedContentElement(message.text, css_class));
-  });
+      $("#messages").prepend(liNonEscapedContentElement(message.user, message.text, css_class));
+    }
+    else {
+      $("#messages").prepend(liEscapedContentElement(message.user, message.text, css_class));
+    }
 
-  //show the connection ID - just for debugging?
-  socket.on("connect", function(){
-    $("#connection-box").val(socket.socket.sessionid);
+    $("#messages-and-users-container").scrollTop(0);
   });
 
   //disable touch scrolling initially - removed when chat is enabled
@@ -42,8 +50,8 @@ $(document).ready(function() {
     var message = $("#message-box").val();
 
     chatApp.sendMessage(message);
-    $("#messages").prepend(liEscapedContentElement("You: " + message, "message-item current-user-message-item"));
-    $("#messages-container").scrollTop($("#messages-container").prop("scrollHeight"));
+    $("#messages").prepend(liEscapedContentElement("You", ": " + message, "message-item current-user-message-item"));
+    $("#messages-and-users-container").scrollTop(0);
     $("#message-box").val("");
 
     return false;
@@ -60,13 +68,13 @@ $(document).ready(function() {
     $("#users li").remove();
     for (var socketId in users) {
       var userName = (socket.socket.sessionid === socketId ? users[socketId].name + " (You)" : users[socketId].name);
-      $("#users").prepend(liEscapedContentElement(userName, "user-item"));
+      $("#users").prepend(liEscapedContentElement(userName, "", "user-item"));
     }
   });
 
   socket.on("nameResult", function(name) {
     if (name.success === true)
-      $("#user-name").text(name.name);
+      $("#user-name").html("Connected as: <strong>" + name.name + "</strong>");
   });
 
   geo = new Geo();
