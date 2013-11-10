@@ -61,6 +61,11 @@ $(document).ready(function() {
     }
   });
 
+  socket.on("nameResult", function(name) {
+    if (name.success === true)
+      $('#user-name').text(name.name);
+  });
+
   geo = new Geo();
   geo.track_location();
 });
